@@ -15,7 +15,7 @@ SWISSPROT_HITS="$BASENAME".hits
 # Blast all sequences against local swissprot database
 cat "$DATA_FOLDER"/"$TRANSCRIPTOME_NAME" |
     parallel -j "$NCPUS" -k --block 1k --recstart '>' --pipe 'blastx -db '$SWISSPROT_DB' \
-        -query - -evalue 1e-5 -outfmt 6 -best_hit_overhang 0.15 -max_target_seqs 1' > "$SWISSPROT_RESULTS"
+        -query - -evalue 1e-8 -outfmt 6 -max_target_seqs 1' > "$SWISSPROT_RESULTS"
 
 # Extract analyzed_genes.hits
 awk '{print $1,$2}' "$SWISSPROT_RESULTS" | uniq > "$SWISSPROT_HITS"
